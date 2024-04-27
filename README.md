@@ -4,12 +4,12 @@ Arbitrary polynomial chaos toolkit for high dimensional stochastic problems in P
 
 ## Installation
 
-First, make sure to work with Python 3 and install the last version of Scipy. Some functionalities may not be available while using older packages. Then, add the main repository folder to your Python path environment variables. Another possibility is to add the path to AcePy in your Python script
+First, make sure to work with Python 3 and install the last version of Scipy. Some functionalities may not be available while using older packages. Then, add the main repository folder to your Python path environment variables. Another possibility is to add the path to ChaosKIT in your Python script
 ```sh
-export PYTHONPATH=path-to-acepy
+export PYTHONPATH=path-to-chaoskit
 ```
 ```python
 from sys import path
-path.append('path-to-acepy')
-import acepy
+path.append('path-to-chaoskit')
+import chaoskit
 ```

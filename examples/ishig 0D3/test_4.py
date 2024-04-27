@@ -1,26 +1,26 @@
 import numpy as np
-import acepy as ap
+import chaoskit as ck
 from fun import response
 
 # %% Initialisation
 
 ordPoly = 8
 ordQuad = 2*ordPoly
-dist = [ap.Uniform(-np.pi,np.pi) for i in range(3)]
+dist = [ck.Uniform(-np.pi,np.pi) for i in range(3)]
 
 # %% Polynomial Chaos
 
-point,weight = ap.tensquad(ordQuad,dist)
-poly = ap.polyrecur(ordPoly,dist)
+point,weight = ck.tensquad(ordQuad,dist)
+poly = ck.polyrecur(ordPoly,dist)
 
 resp = response(point)
-coef = ap.spectral(resp,poly,point,weight)
-model = ap.Expansion(coef,poly)
+coef = ck.spectral(resp,poly,point,weight)
+model = ck.Expansion(coef,poly)
 
-ap.save(model,'model')
-sobol = ap.anova(coef,poly)
+ck.save(model,'model')
+sobol = ck.anova(coef,poly)
 mean,var = [model.mean,model.var]
-index,ancova = ap.ancova(model,point,weight)
+index,ancova = ck.ancova(model,point,weight)
 
 # %% Figures
 

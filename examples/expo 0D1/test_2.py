@@ -1,5 +1,5 @@
 import numpy as np
-import acepy as ap
+import chaoskit as ck
 from fun import sampler
 from fun import response
 
@@ -7,7 +7,7 @@ from fun import response
 
 order = 7
 nbrPts = 1000
-pdf = ap.Normal(1,0.5).pdf
+pdf = ck.Normal(1,0.5).pdf
 dom = [-1,3]
 
 # %% Polynomial Chaos
@@ -15,11 +15,11 @@ dom = [-1,3]
 point = sampler(nbrPts)
 resp = response(point)
 
-poly = ap.gschmidt(order,point)
-coef = ap.colloc(resp,poly,point)
-model = ap.Expansion(coef,poly)
+poly = ck.gschmidt(order,point)
+coef = ck.colloc(resp,poly,point)
+model = ck.Expansion(coef,poly)
 
-ap.save(model,'model')
+ck.save(model,'model')
 mean,var = [model.mean,model.var]
 
 # %% Figures

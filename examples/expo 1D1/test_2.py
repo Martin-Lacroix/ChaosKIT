@@ -1,5 +1,5 @@
 import numpy as np
-import acepy as ap
+import chaoskit as ck
 from fun import response
 from matplotlib import pyplot as plt
 
@@ -7,18 +7,18 @@ from matplotlib import pyplot as plt
 
 ordPoly = 20
 ordQuad = 10*ordPoly
-dist = ap.Normal(1,0.5)
+dist = ck.Normal(1,0.5)
 
 # %% Polynomial Chaos
 
-point,weight = ap.tensquad(ordQuad,dist)
-poly = ap.polyrecur(ordPoly,dist)
+point,weight = ck.tensquad(ordQuad,dist)
+poly = ck.polyrecur(ordPoly,dist)
 
 resp = response(point)
-coef = ap.colloc(resp,poly,point,weight)
-model = ap.Expansion(coef,poly)
+coef = ck.colloc(resp,poly,point,weight)
+model = ck.Expansion(coef,poly)
 
-ap.save(model,'model')
+ck.save(model,'model')
 mean,var = [model.mean,model.var]
 
 # %% Figures
@@ -27,13 +27,13 @@ varMc = np.load('var.npy')
 meanMc = np.load('mean.npy')
 
 plt.figure(1)
-plt.plot(mean,label='AcePy')
+plt.plot(mean,label='ChaosKIT')
 plt.plot(meanMc,'--',label='Monte Carlo')
 plt.ylabel('Mean')
 plt.show()
 
 plt.figure(2)
-plt.plot(var,label='AcePy')
+plt.plot(var,label='ChaosKIT')
 plt.plot(varMc,'--',label='Monte Carlo')
 plt.ylabel('Variance')
 plt.show()

@@ -1,5 +1,5 @@
 import numpy as np
-import acepy as ap
+import chaoskit as ck
 from fun import sampler,response
 from matplotlib import pyplot as plt
 
@@ -7,22 +7,22 @@ from matplotlib import pyplot as plt
 
 order = 30
 nbrPts = int(1e4)
-law = ap.Normal(1,0.5)
+law = ck.Normal(1,0.5)
 
 # %% Polynomial Chaos
 
 point = sampler(nbrPts)
-poly = ap.gschmidt(order,point)
-index,weight = ap.fekquad(point,poly)
+poly = ck.gschmidt(order,point)
+index,weight = ck.fekquad(point,poly)
 
 poly.trunc(15)
 point = point[index]
 
 resp = response(point)
-coef = ap.spectral(resp,poly,point,weight)
-model = ap.Expansion(coef,poly)
+coef = ck.spectral(resp,poly,point,weight)
+model = ck.Expansion(coef,poly)
 
-ap.save(model,'model')
+ck.save(model,'model')
 mean,var = [model.mean,model.var]
 
 # %% Figures
@@ -31,13 +31,13 @@ varMc = np.load('var.npy')
 meanMc = np.load('mean.npy')
 
 plt.figure(1)
-plt.plot(mean,label='AcePy')
+plt.plot(mean,label='ChaosKIT')
 plt.plot(meanMc,'--',label='Monte Carlo')
 plt.ylabel('Mean')
 plt.show()
 
 plt.figure(2)
-plt.plot(var,label='AcePy')
+plt.plot(var,label='ChaosKIT')
 plt.plot(varMc,'--',label='Monte Carlo')
 plt.ylabel('Variance')
 plt.show()

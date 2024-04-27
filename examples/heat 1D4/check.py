@@ -1,6 +1,6 @@
 import pickle
 import numpy as np
-import acepy as ap
+import chaoskit as ck
 from fun import sampler,response
 from matplotlib import pyplot as plt
 
@@ -28,13 +28,13 @@ error = 100*np.mean(error,axis=0)
 # %% Figures
 
 plt.figure(1)
-plt.plot(meanMod,label='AcePy')
+plt.plot(meanMod,label='ChaosKIT')
 plt.plot(mean,'--',label='Monte Carlo')
 plt.ylabel('Mean')
 plt.show()
 
 plt.figure(2)
-plt.plot(varMod,label='AcePy')
+plt.plot(varMod,label='ChaosKIT')
 plt.plot(var,'--',label='Monte Carlo')
 plt.ylabel('Variance')
 plt.show()

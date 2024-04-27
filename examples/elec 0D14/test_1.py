@@ -1,5 +1,5 @@
 import numpy as np
-import acepy as ap
+import chaoskit as ck
 from fun import sampler
 from fun import response
 
@@ -11,15 +11,15 @@ nbrPts = int(1e5)
 # %% Polynomial Chaos
 
 point = sampler(nbrPts)
-poly = ap.gschmidt(order,point)
+poly = ck.gschmidt(order,point)
 resp = response(point)
 
-coef = ap.colloc(resp,poly,point)
-model = ap.Expansion(coef,poly)
+coef = ck.colloc(resp,poly,point)
+model = ck.Expansion(coef,poly)
 
-ap.save(model,'model')
+ck.save(model,'model')
 mean,var = [model.mean,model.var]
-index,ancova = ap.ancova(model,point)
+index,ancova = ck.ancova(model,point)
 
 # %% Figures
 
